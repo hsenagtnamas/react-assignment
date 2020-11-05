@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import ProductList from './ProductList'
 import Cart from './Cart'
-import Product from './Product'
+
 
 export default function ShoppingMall() {
 
@@ -21,7 +21,6 @@ export default function ShoppingMall() {
         .then( res => { 
   
           setIsResultAvailable(true)
-          console.log(res)
           
           if ( !res ){
             setError('No response found for URL : ' + url )
@@ -47,7 +46,7 @@ export default function ShoppingMall() {
         if ( operation === 'increment' ){
 
             let _cart = { ...cart }
-            _cart [productId] = ( productId in cart ) ? cart [productId] + 1 : 1
+            _cart[ productId ] = ( productId in cart ) ? cart[ productId ] + 1 : 1
             setCart ( _cart )
 
         }else if ( operation === 'decrement' ){
@@ -56,10 +55,10 @@ export default function ShoppingMall() {
         
             if ( productId in cart ){
                 
-                _cart [productId] -=  1
+                _cart[ productId ] -=  1
 
-                if ( _cart [productId] <= 0 )
-                    delete _cart [productId]
+                if ( _cart[ productId ] <= 0 )
+                    delete _cart[ productId ]
             
                 setCart ( _cart )
             }
@@ -67,19 +66,18 @@ export default function ShoppingMall() {
         }else if ( operation === 'set' ){
 
             let _cart = { ...cart }
-            _cart [productId] = value
-            if ( _cart [productId] <= 0 )
-                delete _cart [productId]
+            _cart[ productId ] = value
+            if ( _cart[ productId ] <= 0 )
+                delete _cart[ productId ]
 
             setCart ( _cart )
 
+        }else if ( operation === 'removeAll' ) {
+
+            setCart([])
         }
     }
 
-    function onRemoveFromCart ( productId ) {
-
-        
-    }
   
     return (
         (!isResultAvailable) ? <div>Waiting for API Response</div> : error ? error :
@@ -93,10 +91,7 @@ export default function ShoppingMall() {
                             <Link to="/">Home</Link>
                         </li>
                         <li>
-                            <Link to="/products">Products</Link>
-                        </li>
-                        <li>
-                            <Link to="/cart">Cart</Link>
+                            <Link to="/cart">Cart  {Object.keys(cart).length} </Link>
                         </li>
                         
                     </ul>
@@ -105,12 +100,10 @@ export default function ShoppingMall() {
                 <Switch>
 
                     <Route path="/cart">
-                        <Cart products={products} productsInCart={cart} onUpdateCart={onUpdateCart} />
+                        <Cart products={products} onUpdateCart={onUpdateCart} cart={cart} />
                     </Route>
 
-                    <Route path="/products/" render={(props) => <ProductList products={products} onUpdateCart={onUpdateCart}  /> }  />
-
-                    <Route path="/productDetails/:selectedProductId" render={(props) => <ProductList products={products} selectedProductId={props.match.params.selectedProductId} onUpdateCart={onUpdateCart} /> }  />
+                    <Route path="/:selectedProductId?" render={(props) => <ProductList products={products} selectedProductId={props.match.params.selectedProductId} onUpdateCart={onUpdateCart} cart={cart} /> }  />
 
                 </Switch>
 
