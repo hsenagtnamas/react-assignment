@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
+import ShoppingMall from './ShoppingMall'
 
-
-//Change the example number to try different apps in the example folder
-import App from './examples/3-assignment-redux/';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ShoppingMall />
   </React.StrictMode>,
   document.getElementById('root')
 );
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
