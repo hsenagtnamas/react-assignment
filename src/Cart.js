@@ -13,16 +13,13 @@ import { useHistory } from "react-router-dom";
 
     let history = useHistory()
 
-    const onBillingSuccess = (e) => {
-      e.preventDefault();
+    const onBillingSuccess = () => {
       onUpdateCart ( null, 'removeAll' )
-      setBillingStatus('notStarted')
       history.push("/");
     }
 
-    console.log('render')
-
-    const billingAmount = _products.reduce( ( acc, p ) => cart[p.id] * p.price + acc, 0 )
+    
+    const billingAmount = _products.reduce( ( acc, p ) => Math.round((cart[p.id] * p.price + acc + Number.EPSILON) * 100) / 100, 0 )
 
     return (
         <div>

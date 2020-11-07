@@ -8,7 +8,22 @@ import Cart from './Cart'
 export default function ShoppingMall() {
 
     const [ products, setProducts ] = useState ( [] );
-    const [ cart, setCart ] = useState ( {} );
+    
+    const [ cart, setCart ] = useState ( () => {
+        const persistedCart = window.localStorage.getItem('cart');
+        return persistedCart !== null
+          ? JSON.parse(persistedCart)
+          : {};
+    });
+    
+
+    useEffect(() => {
+
+        window.localStorage.setItem( 'cart', JSON.stringify(cart));
+
+    }, [cart]);
+
+
     const [ error, setError ] = useState ( '' );
     const [ isResultAvailable, setIsResultAvailable ] = useState ( false );
   
