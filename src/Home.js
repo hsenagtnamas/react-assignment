@@ -6,7 +6,23 @@ import Products from './Products'
 export default function Home(props){
 
     const [ products, setProducts ] = useState ( [] );
- 
+    useEffect ( () => {
+      
+      const url = 'https://fakestoreapi.com/products'
+  
+        fetch( url )
+        .then( res => res.json() )
+        .then( res => {
+          res ? setProducts(res) : console.log ( res ) 
+        }, (e) => {
+            console.log ( String ( 'Got Error response : ' + e ) ) 
+        } )
+  
+        .catch((e) => console.log ( String ( 'Got Error : ' + e ) )) 
+        
+    }, []);
+    
+    
     const [ cart, setCart ] = useState ( () => {
         const persistedCart = window.localStorage.getItem('cart');
         return persistedCart ? JSON.parse(persistedCart) : {};
