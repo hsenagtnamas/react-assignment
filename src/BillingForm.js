@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import InputText from './InputText'
+import InputText from './common/InputText'
     
 export default function BillingForm(props) {
     
@@ -20,7 +20,7 @@ export default function BillingForm(props) {
 
     useEffect(() => {
 
-        const re = /^[A-Za-z\s]+$/
+        const re = /^[A-Za-z]+\s[A-Za-z]+$/
 
         setNameIsValid ( re.test(String(name) ))
 
@@ -80,10 +80,10 @@ export default function BillingForm(props) {
         <h1>Payment successful</h1> :
         <form onSubmit={_onSubmit}>
             <h2>Billing Form</h2>
-            <InputText label="Name" name="name" value = {name} onChange={setName} />
-            <InputText label="Email" name="email" value = {email} onChange={setEmail} />
-            <InputText label="Phone" name="phone" value = {phone} onChange={setPhone} />
-            <InputText label="Credit Card Number" name="creditCardNumber" value = {creditCardNumber} onChange={setCreditCardNumber} />
+            <InputText label="Name" name="name" value = {name} onChange={setName} isValid={nameIsValid} helpText='Please enter your name' />
+            <InputText label="Email" name="email" value = {email} onChange={setEmail} isValid={emailIsValid} helpText='Please enter your email' />
+            <InputText label="Phone" name="phone" value = {phone} onChange={setPhone} isValid={phoneIsValid} helpText='Please enter 10 digit phone number'/>
+            <InputText label="Credit Card Number" name="creditCardNumber" value = {creditCardNumber} onChange={setCreditCardNumber} isValid={creditCardNumberIsValid} helpText='Please enter 16 digit Number' />
 
             <label> Total Amount : {billingAmount} </label><br/>
             <input type="submit" value="Submit" disabled={!isInputOk} /><br/>
