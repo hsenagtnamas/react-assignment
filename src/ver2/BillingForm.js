@@ -3,7 +3,7 @@ import InputText from './InputText'
     
 export default function BillingForm(props) {
     
-    const { billingAmount, onSuccess } = props
+    const { billingAmount, onSuccess, onCancel } = props
 
     let [ isInputOk, setInputOk ]= useState ( false )
     let [ name, setName ]= useState ( '' )
@@ -87,6 +87,7 @@ export default function BillingForm(props) {
 
             <label> Total Amount : {billingAmount} </label><br/>
             <input type="submit" value="Submit" disabled={!isInputOk} /><br/>
+            <button className="btn btn-danger" onClick = { (e) => { e.preventDefault(); onCancel() } }>Cancel</button>
         </form>
     )
   }

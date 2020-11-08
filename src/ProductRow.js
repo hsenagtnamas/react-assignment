@@ -2,7 +2,7 @@ import React from 'react';
 import Product from './Product'
 import QuantitySelector from './QuantitySelector'
 
-function ProductRow(props){
+export default function ProductRow(props){
 
     const { product, cart, onUpdateCart, productView } = props
 
@@ -21,21 +21,3 @@ function ProductRow(props){
         </div>
     )
 }
-
-export default function ProductList (props){
-
-    const { products, selectedProductId, onUpdateCart, cart, productView } = props
-
-    const _products =  selectedProductId ? products.filter ( p => String(p.id) === String(selectedProductId) ) : products
-
-    const _productView = selectedProductId ? 'detailed' : productView
-    
-    return (
-        <div className='row'>
-            {
-                _products.map( product => <ProductRow key={'product-' + product.id } product={product} onUpdateCart={onUpdateCart} cart={cart} productView={_productView} /> )
-            }
-        </div>
-      )
-}
-

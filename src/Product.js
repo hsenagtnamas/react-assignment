@@ -1,35 +1,31 @@
 import { Link } from "react-router-dom";
 
-const imageSize = {
-
-    'normal' : 100,
-    'cart' : 50,
-    'detailed' : 500
-
-}
-
 export default function Product(props) {
 
     const { id, category, description, image, price, title, view = 'normal' } = props
     
     
     return (
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <img src={image} alt="not available" width={imageSize[view]} height={imageSize[view]} />
-                    </td>
-                    <td>
-                        <Link to={`/${id}`} >{title}</Link><br/>
-                        { view === 'cart' ? null : category }<br />
-                        {price}<br />
-                        { view === 'cart' ? null : description }<br />
+        <div>
+            { view === 'cart' ? null : 
+                <div className='row' >
+                    <h3><Link to={`/${id}`} >{title}</Link><br/></h3>
+                </div>
+            }
+        <div className='row' >
+            <div className = { view === 'cart' ? 'col col col-sm-2' : 'col col-sm-4' } >
+                <img className="img-fluid" src={image} alt="not available" />
+            </div>
+            <div className = { view === 'cart' ? 'col col-sm-10' : 'col col-sm-8' } >
+                { view === 'cart' ? <Link to={`/${id}`} >{title}</Link> : null }
+                { view === 'cart' ? null : category }<br />
+                {price}<br />
+                { view === 'cart' ? null : <blockquote>{description}</blockquote> }<br />
 
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+            </div>
+        </div>
+        <div className='row' ><br/></div>
+        </div>
     )
 }
   

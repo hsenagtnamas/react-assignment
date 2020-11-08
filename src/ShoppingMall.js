@@ -93,23 +93,21 @@ export default function ShoppingMall() {
         }
     }
 
+    const productsInCart = Object.keys(cart).length
   
     return (
         (!isResultAvailable) ? <div>Waiting for API Response</div> : error ? error :
         <Router>
 
-            <div>
-
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/cart">Cart  {Object.keys(cart).length} </Link>
-                        </li>
+            <div className='container'>
+                <nav className="navbar navbar-inverse">
+                    <div className="container-fluid">
+                        <ul className="nav navbar-nav">
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to="/cart">Cart </Link> { productsInCart <= 0 ? null : <span className="badge badge-dark"> {productsInCart} </span> }</li>
                         
-                    </ul>
+                        </ul>
+                    </div>
                 </nav>
 
                 <Switch>

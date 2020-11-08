@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import ShoppingMall from './ShoppingMall'
+import Home from './ver2/Home'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <ShoppingMall />
+    <Home />
   </React.StrictMode>,
   document.getElementById('root')
 );

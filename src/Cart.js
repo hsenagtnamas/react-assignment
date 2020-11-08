@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ProductList from './ProductList'
-import BillingForm from './BillingForm'
+import BillingForm from './ver2/BillingForm'
 import { useHistory } from "react-router-dom";
 
   export default function Cart(props) {
@@ -28,13 +28,13 @@ import { useHistory } from "react-router-dom";
               _products.length <= 0 ? 
                 <div> Your Cart Is Empty </div> :
                 <div>
-                  <ProductList products={_products} onUpdateCart={onUpdateCart} cart={cart} productView="cart" />
+                  <ProductList products={_products} onUpdateCart={onUpdateCart} cart={cart} productView="cart" readOnly = { billingStatus === 'inProgress' } />
                   <div>Total Price = {billingAmount} </div>
                   { 
                     (billingStatus==='notStarted') 
-                    ? <button onClick={()=>setBillingStatus('inProgress')} > Checkout </button> 
+                    ? <button onClick = { () => setBillingStatus ( 'inProgress' ) } > Checkout </button> 
                     : (billingStatus==='inProgress') 
-                      ? <BillingForm onSuccess={onBillingSuccess} billingAmount={billingAmount} /> 
+                      ? <BillingForm onSuccess = { onBillingSuccess } billingAmount = { billingAmount } onCancel = { () => setBillingStatus ( 'notStarted' ) } /> 
                       :  null
                   }
 
